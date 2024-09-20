@@ -69,7 +69,7 @@ class MyRequestHandler(BaseHTTPRequestHandler):
                 response = {'status': 'success', 'data': line}
                 self.wfile.write(json.dumps(response).encode('utf-8'))
             else:
-                response = {'status': 'error'}
+                response = {'status': 'success', 'data': 0}
                 self.wfile.write(json.dumps(response).encode('utf-8'))
         
         except json.JSONDecodeError:
@@ -80,7 +80,7 @@ class MyRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps({'error': 'Invalid JSON'}).encode('utf-8'))
 
 def run_server():
-    port = 8080
+    port = 1256
     server_address = ('', port)
     httpd = HTTPServer(server_address, MyRequestHandler)
     print(TAG + f": starting server on the ip : http://localhost:{port}...")
