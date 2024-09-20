@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serial Data Plot</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-3xl mx-auto text-center">
+      <!-- Title -->
+      <h1 class="text-4xl font-bold text-gray-800 mb-8">Serial Data Visualization</h1>
+
+      <!-- Buttons -->
+      <div class="flex justify-center space-x-4 mb-8">
+        <!-- Start Button -->
+        <button id="startDifferential" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Start
+        </button>
+      </div>
+
+      <!-- Chart Container -->
+      <div class="bg-white p-4 rounded-lg shadow-lg">
+        <canvas id="serialDataChart"></canvas>
+      </div>
+    </div>
+
+    <script>
+      // Setup Chart.js to plot serial data over time
+      const ctx = document.getElementById('serialDataChart').getContext('2d');
+      const serialDataChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [], // Time labels
+          datasets: [{
+            label: 'Serial Data',
+            data: [], // Serial data points
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            fill: true,
+          }]
+        },
+        options: {
+          scales: {
+            x: {
+              type: 'linear',
+              position: 'bottom',
+              title: {
+                display: true,
+                text: 'Time (seconds)'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Serial Data Value'
+              }
+            }
+          }
+        }
+      });
+
+      // Function to add new data to the chart
+      function updateChart(newTime, newData) {
+        serialDataChart.data.labels.push(newTime);
+        serialDataChart.data.datasets[0].data.push(newData);
+        serialDataChart.update();
+      }
+
+      var listening = false;
+      var interval;
+
+      // Event listeners for buttons
+      document.getElementById('startDifferential').addEventListener('click', (e) => {
+        console.log('Differential Mode Started');
+        if (listening == false)
+        {
+          e.target.innerHTML = "Stop"
+          listening = true;
+          simulateSerialData('differential');
+        }
+        else
+        {
+          e.target.innerHTML = "Start"
+          listening = false;
+          clearInterval(interval);
+        }
+      });
+
+      // Simulate receiving serial data
+      function simulateSerialData(mode) {
+        let time = 0;
+        interval = setInterval(() => {
+          if (mode === 'differential') 
+          {
+            // Send post request
+            fetch("/", {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json' 
+              },
+              body: JSON.stringify({ 'data' : '1' }) 
+            })
+              .then(response => response.json()) 
+              .then(responseData => {
+                console.log('Server Response:', responseData);
+                updateChart(time, parseFloat(responseData.data));
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+
+          }
+          time += 1;
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
