@@ -16,7 +16,7 @@ def config_serial():
         serial_port = sys.argv[1]
         baudrate = int(sys.argv[2])
 
-        if os.path.exists(serial_port): raise Exception("port")
+        if not os.path.exists(serial_port): raise Exception("port")
     except Exception as e:
         if e.args == "port":
             print(TAG + ": '{}' not found.".format(serial_port))
