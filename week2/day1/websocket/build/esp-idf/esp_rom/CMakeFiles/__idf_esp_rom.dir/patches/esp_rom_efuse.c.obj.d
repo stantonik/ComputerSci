@@ -1,0 +1,37 @@
+esp-idf/esp_rom/CMakeFiles/__idf_esp_rom.dir/patches/esp_rom_efuse.c.obj: \
+ /Users/stanleyarn/esp/esp-idf/components/esp_rom/patches/esp_rom_efuse.c \
+ /Users/stanleyarn/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/lib/gcc/xtensa-esp-elf/13.2.0/include/stdint.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/stdint.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/machine/_default_types.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/sys/features.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/_newlib_version.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/sys/_intsup.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/sys/_stdint.h \
+ /Users/stanleyarn/esp/esp-idf/components/esp_common/include/esp_assert.h \
+ /Users/stanleyarn/esp/esp-idf/components/newlib/platform_include/assert.h \
+ /Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/build/config/sdkconfig.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/stdlib.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/machine/ieeefp.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/_ansi.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/newlib.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/sys/config.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/lib/gcc/xtensa-esp-elf/13.2.0/include/stddef.h \
+ /Users/stanleyarn/esp/esp-idf/components/newlib/platform_include/sys/reent.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/sys/reent.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/_ansi.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/sys/_types.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/machine/_types.h \
+ /Users/stanleyarn/esp/esp-idf/components/newlib/platform_include/sys/lock.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/sys/lock.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/sys/cdefs.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/machine/stdlib.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/alloca.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/sys/_locale.h \
+ /Users/stanleyarn/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/xtensa-esp-elf/include/assert.h \
+ /Users/stanleyarn/esp/esp-idf/components/soc/esp32/include/soc/soc_caps.h \
+ /Users/stanleyarn/esp/esp-idf/components/soc/esp32/include/soc/interrupts.h \
+ /Users/stanleyarn/esp/esp-idf/components/esp_common/include/esp_bit_defs.h \
+ /Users/stanleyarn/esp/esp-idf/components/soc/esp32/include/soc/reg_base.h \
+ /Users/stanleyarn/esp/esp-idf/components/soc/esp32/include/soc/efuse_reg.h \
+ /Users/stanleyarn/esp/esp-idf/components/soc/esp32/include/soc/efuse_defs.h

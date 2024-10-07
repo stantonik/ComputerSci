@@ -1,0 +1,8 @@
+/Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/main/websocket.c: In function 'wifi_connection':
+/Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/main/websocket.c:101:1: error: control reaches end of non-void function [-Werror=return-type]
+  101 | }
+      | ^
+cc1: some warnings being treated as errors
+make[2]: *** [esp-idf/main/CMakeFiles/__idf_main.dir/websocket.c.obj] Error 1
+make[1]: *** [esp-idf/main/CMakeFiles/__idf_main.dir/all] Error 2
+make: *** [all] Error 2

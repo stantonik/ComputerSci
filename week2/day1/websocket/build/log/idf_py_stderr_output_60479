@@ -1,0 +1,8 @@
+/Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/main/websocket.c: In function 'wifi_connection':
+/Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/main/websocket.c:97:9: error: implicit declaration of function 'ESP_RETURN_ON_ERROR' [-Werror=implicit-function-declaration]
+   97 |         ESP_RETURN_ON_ERROR(mdns_init(), TAG, "mDNS service init error.");
+      |         ^~~~~~~~~~~~~~~~~~~
+cc1: some warnings being treated as errors
+make[2]: *** [esp-idf/main/CMakeFiles/__idf_main.dir/websocket.c.obj] Error 1
+make[1]: *** [esp-idf/main/CMakeFiles/__idf_main.dir/all] Error 2
+make: *** [all] Error 2

@@ -1,0 +1,15 @@
+In file included from /Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/main/websocket.c:16:
+/Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/main/websocket.c: In function 'wifi_connection':
+/Users/stanleyarn/esp/esp-idf/components/esp_common/include/esp_check.h:306:20: error: 'return' with a value, in function returning void [-Werror=return-type]
+  306 |             return err_rc_;                                                                     \
+      |                    ^~~~~~~
+/Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/main/websocket.c:98:9: note: in expansion of macro 'ESP_RETURN_ON_ERROR'
+   98 |         ESP_RETURN_ON_ERROR(mdns_init(), TAG, "mDNS service init error.");
+      |         ^~~~~~~~~~~~~~~~~~~
+/Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/main/websocket.c:69:6: note: declared here
+   69 | void wifi_connection()
+      |      ^~~~~~~~~~~~~~~
+cc1: some warnings being treated as errors
+make[2]: *** [esp-idf/main/CMakeFiles/__idf_main.dir/websocket.c.obj] Error 1
+make[1]: *** [esp-idf/main/CMakeFiles/__idf_main.dir/all] Error 2
+make: *** [all] Error 2

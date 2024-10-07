@@ -1,0 +1,4 @@
+/Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/main/websocket.c: In function 'send_data_task':
+/Users/stanleyarn/Documents/github/school/ComputerSci/main/week2/day1/websocket/main/websocket.c:58:24: warning: unused variable 'hd' [-Wunused-variable]
+   58 |         httpd_handle_t hd = (httpd_handle_t)arg;
+      |                        ^~
