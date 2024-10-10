@@ -26,6 +26,10 @@ Requierements:
 - WebSockets
 - Simple and effective Web design
 
+Here is a little sketch :
+
+![sketch](./assets/sketch.jpg)
+
 #### 1 - Hardware
 
 Part list:
@@ -51,10 +55,12 @@ To detect the closed and the opened position, I put two endstops.
 ##### i - Front-End
 
 I wanted a simple site. I first designed it on Figma.
+
 ![figma](./assets/software_figma.png)
 You just click on the lock to toggle it and errors can appear below.
 
 The HTML implementation was quite simple. The script just allows to toggle the lock visually and physically by sending a message to the server. It also listens to the server and act accordingly. I also add sound effect for the immersion.
+
 ![web demo](./assets/software_webdemo.gif)
 
 ##### ii - Back-End (esp32) :
