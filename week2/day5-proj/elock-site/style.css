@@ -1,0 +1,63 @@
+body {
+        margin: 0;
+        padding-top: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(20, 20, 20, 1);
+}
+
+div {
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+}
+
+h1 {
+        filter: blur(1px);
+}
+
+#lock-container {
+        position: relative;
+        margin-top: 15vh;
+        margin-bottom: 15vh;
+        height: 10vw;
+        display: flex;
+}
+
+#lock-container img {
+        z-index: 6;
+        height: 100%;
+        width: auto;
+}
+
+#lock {
+        height: 80%;
+        position: absolute;
+        left: 0;
+        top: -14%;
+        transition: all 0.5s ease; 
+        border-radius: 5px;
+}
+
+#blurry {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: red;
+        opacity: 0.5;
+        transition: background-color 0.5s ease;
+        filter: blur(100px);
+        z-index: 0;
+}
+
+.close #lock {
+        left: 12vw; 
+}
+
+.close #blurry {
+        background-color: green;
+}
+
