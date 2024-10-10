@@ -7,6 +7,25 @@ body {
         background-color: rgba(20, 20, 20, 1);
 }
 
+#overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        z-index: 9999; 
+}
+
+.disable-interaction {
+        pointer-events: none;
+}
+
 div {
         text-align: center;
         justify-content: center;
@@ -21,7 +40,7 @@ h1 {
         position: relative;
         margin-top: 15vh;
         margin-bottom: 15vh;
-        height: 10vw;
+        height: 15vh;
         display: flex;
 }
 
@@ -34,7 +53,7 @@ h1 {
 #lock {
         height: 80%;
         position: absolute;
-        left: 0;
+        left: 1.5vw;
         top: -14%;
         transition: all 0.5s ease; 
         border-radius: 5px;
@@ -54,10 +73,40 @@ h1 {
 }
 
 .close #lock {
-        left: 12vw; 
+        left: 14vw; 
 }
 
 .close #blurry {
         background-color: green;
 }
 
+#warning-div {
+        height: 10vh;
+        color: darkred;
+        font-size: large;
+        display: flex;
+        gap: 5vw;
+        opacity: 0;
+}
+
+#warning-div img {
+        height: 100%;
+        width: auto;
+        opacity: 0.5;
+}
+
+@keyframes fade-in-out {
+        0% {
+                opacity: 0;
+        }
+        30%, 60% {
+                opacity: 1;
+        }
+        100% {
+                opacity: 0;
+        }
+}
+
+.error {
+        animation: fade-in-out 1s infinite;
+}

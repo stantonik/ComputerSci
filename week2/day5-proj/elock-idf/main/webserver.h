@@ -35,7 +35,7 @@ extern int fd;
 /*   Function Declarations    */
 /******************************/
 extern esp_err_t ws_init();
-extern void ws_async_send(const char *key, const char *val);
+extern void ws_broadcast(const char *key, const char *val);
 extern esp_err_t ws_set_callback(void (*)(const char *));
 
 #ifdef __cplusplus

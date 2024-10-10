@@ -3,9 +3,9 @@
 
 > This week focused IoT with Espressif's hardware.
 
-Before the final project, we learn about :
+Before the final project, we learned about :
 - WebSocket and how to implement it on esp32 with Arduino IDE.
-- Design with Figma
+- Web design with Figma
 - HTML/CSS/JS
 
 **Disclaimer :**
@@ -54,11 +54,12 @@ I wanted a simple site. I first designed it on Figma.
 ![figma](./assets/software_figma.png)
 You just click on the lock to toggle it and errors can appear below.
 
-The HTML implementation was quite simple. The script just allows to toggle the lock visually and physically by sending a message to the server. It also listens to the server and act accordingly.
+The HTML implementation was quite simple. The script just allows to toggle the lock visually and physically by sending a message to the server. It also listens to the server and act accordingly. I also add sound effect for the immersion.
+![web demo](./assets/software_webdemo.gif)
 
 ##### ii - Back-End (esp32) :
 
-Periperics used:
+Peripherics used:
 - Wifi
 - LED control (for pwm)
 - SPI (for sd card)

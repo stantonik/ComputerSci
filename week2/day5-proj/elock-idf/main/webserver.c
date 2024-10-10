@@ -25,7 +25,7 @@ int fd = 0;
 /******************************/
 /*     Static Variables       */
 /******************************/
-#define TAG "websocket"
+#define TAG "webserver"
 
 void (* callback)(const char *) = NULL;
 
@@ -42,22 +42,18 @@ struct async_resp_arg
 /******************************/
 /*   Function Definitions     */
 /******************************/
-void ws_async_send(const char *key, const char *val)
+void ws_broadcast(const char *key, const char *val)
 {
-        struct async_resp_arg resp_arg = { server, fd };
-        httpd_handle_t hd = resp_arg.hd;
-        int fd = resp_arg.fd;
         httpd_ws_frame_t ws_pkt;
         memset(&ws_pkt, -1, sizeof(httpd_ws_frame_t));
 
-        size_t buflen = strlen(key) + strlen(val) + 4;
-        char *buf = calloc(1, buflen + 1);
-        snprintf(buf, buflen, "%c%s%s%s%c", '{', key, ": ", val, '}');
-        ws_pkt.payload = (uint8_t*)buf;
-        ws_pkt.len = strlen(buf);
         ws_pkt.type = HTTPD_WS_TYPE_TEXT;
+        ws_pkt.len = strlen(key) + strlen(val) + 4;
+        char *buf = calloc(1, ws_pkt.len + 1);
+        snprintf(buf, ws_pkt.len, "%c%s%s%s%c", '{', key, ": ", val, '}');
+        ws_pkt.payload = (uint8_t*)buf;
 
-        httpd_ws_send_frame_async(hd, fd, &ws_pkt);
+        httpd_ws_send_frame_async(server, fd, &ws_pkt);
 }
 
 static esp_err_t ws_handler(httpd_req_t *req)
@@ -102,13 +98,6 @@ esp_err_t root_get_handler(httpd_req_t *req)
         return ESP_OK;
 }
 
-static const httpd_uri_t ws = {
-        .uri        = "/ws",
-        .method     = HTTP_GET,
-        .handler    = ws_handler,
-        .user_ctx   = NULL,
-        .is_websocket = true
-};
 
 esp_err_t ws_set_callback(void (* _callback)(const char *))
 {
@@ -128,6 +117,14 @@ esp_err_t ws_init()
         ESP_LOGI(TAG, "Starting server on port: '%d'", config.server_port);
         ESP_RETURN_ON_ERROR(httpd_start(&server, &config), TAG, "error");
         ESP_LOGI(TAG, "Registering URI handlers");
+
+        httpd_uri_t ws = {
+                .uri        = "/ws",
+                .method     = HTTP_GET,
+                .handler    = ws_handler,
+                .user_ctx   = NULL,
+                .is_websocket = true
+        };
         httpd_register_uri_handler(server, &ws);
 
         httpd_uri_t _root_get_handler = 
@@ -138,6 +135,7 @@ esp_err_t ws_init()
                 .user_ctx = NULL
         };
         httpd_register_uri_handler(server, &_root_get_handler);
+
         return ESP_OK;
 }
 

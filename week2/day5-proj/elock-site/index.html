@@ -9,6 +9,8 @@
 
     <body>
         <div>
+            <div id="overlay">Connecting...</div>
+
             <h1>e-lock</h1>
 
             <div id="lock-container">
@@ -23,9 +25,14 @@
 
             </div>
 
-            <div id="warning-div">
+            <template id="debug-template">
                 <input id="cmd-input" type="text" placeholder="type cmd..">
                 <button id="sendcmd-button">Send</button>
+            </template>
+
+            <div id="warning-div">
+                <img src="img/caution.png">
+                <p>SOMEONE IS FORCING THE DOOR</p>
             </div>
         </div>
 

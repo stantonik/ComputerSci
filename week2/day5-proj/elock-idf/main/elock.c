@@ -24,12 +24,19 @@
 #define LEDC_DUTY_RES           LEDC_TIMER_10_BIT
 #define LEDC_FREQUENCY          (50)
 
-#define MOTOR_PIN 7
-#define ENDSTOP_OPEN_PIN 1
-#define ENDSTOP_CLOSE_PIN 4
-#define LED_RED_PIN 2
-#define LED_GREEN_PIN 9
-#define SENSOR_PIN 8
+/* #define MOTOR_PIN 7 */
+/* #define ENDSTOP_OPEN_PIN 1 */
+/* #define ENDSTOP_CLOSE_PIN 4 */
+/* #define LED_RED_PIN 2 */
+/* #define LED_GREEN_PIN 9 */
+/* #define SENSOR_PIN 8 */
+
+#define MOTOR_PIN 16
+#define ENDSTOP_OPEN_PIN 17
+#define ENDSTOP_CLOSE_PIN 18
+#define LED_RED_PIN 19
+#define LED_GREEN_PIN 21
+#define SENSOR_PIN 22
 
 #define TAG "elock"
 
@@ -68,13 +75,13 @@ void send_state()
         switch (state) 
         {
                 case OPEN:
-                        ws_async_send("state", "open");
+                        ws_broadcast("state", "open");
                         break;
                 case CLOSE:
-                        ws_async_send("state", "close");
+                        ws_broadcast("state", "close");
                         break;
                 case MOVING:
-                        ws_async_send("state", "moving");
+                        ws_broadcast("state", "moving");
                         break;
         }
 }
@@ -84,7 +91,7 @@ void ws_callback(const char *payload)
         if (strcmp(payload, "close") == 0)
         {
                 ESP_LOGI(TAG, "closing lock..");
-                ws_async_send("log", "lock closing...");
+                ws_broadcast("log", "lock closing...");
                 if (lock_close() == ESP_OK)
                 {
                         ESP_LOGI(TAG, "lock closed");
@@ -137,7 +144,7 @@ void loop_task(void *arg)
                         if (!is_forcing)
                         {
                                 is_forcing = true;
-                                ws_async_send("status", "forcing");
+                                ws_broadcast("status", "forcing");
                         }
                 }
                 else
@@ -145,7 +152,7 @@ void loop_task(void *arg)
                         if (is_forcing)
                         {
                                 is_forcing = false;
-                                ws_async_send("status", "ok");
+                                ws_broadcast("status", "ok");
                         }
                 }
 
@@ -212,14 +219,12 @@ void app_main(void)
         ws_init();
         ws_set_callback(ws_callback);
 
-        gpio_reset_pin(MOTOR_PIN);
         gpio_reset_pin(ENDSTOP_CLOSE_PIN);
         gpio_reset_pin(ENDSTOP_OPEN_PIN);
         gpio_reset_pin(LED_GREEN_PIN);
         gpio_reset_pin(LED_RED_PIN);
         gpio_reset_pin(SENSOR_PIN);
 
-        gpio_set_direction(MOTOR_PIN, GPIO_MODE_OUTPUT);
         gpio_set_direction(LED_GREEN_PIN, GPIO_MODE_OUTPUT);
         gpio_set_direction(LED_RED_PIN, GPIO_MODE_OUTPUT);
         gpio_set_direction(ENDSTOP_OPEN_PIN, GPIO_MODE_INPUT);
