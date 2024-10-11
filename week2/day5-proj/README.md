@@ -16,6 +16,10 @@ In this project, I deal with a lot of the esp32 peripherics so for optimisation,
 
 > The goal here is to make a connected slide lock fixed to a door which you can control with your phone.
 
+Demo (click for the sound):
+
+[![demo](./assets/demo.gif)](./assets/demo.mov)
+
 Requierements:
 - On battery with long autonomy
 - Proper access point with WPA3 auth mode

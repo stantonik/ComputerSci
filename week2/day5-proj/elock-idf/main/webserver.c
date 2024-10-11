@@ -48,12 +48,13 @@ void ws_broadcast(const char *key, const char *val)
         memset(&ws_pkt, -1, sizeof(httpd_ws_frame_t));
 
         ws_pkt.type = HTTPD_WS_TYPE_TEXT;
-        ws_pkt.len = strlen(key) + strlen(val) + 4;
+        ws_pkt.len = strlen(key) + strlen(val) + 8;
         char *buf = calloc(1, ws_pkt.len + 1);
-        snprintf(buf, ws_pkt.len, "%c%s%s%s%c", '{', key, ": ", val, '}');
+        snprintf(buf, ws_pkt.len + 1, "%s%s%s%s%s", "{\"", key, "\": \"", val, "\"}");
         ws_pkt.payload = (uint8_t*)buf;
 
         httpd_ws_send_frame_async(server, fd, &ws_pkt);
+        free(buf);
 }
 
 static esp_err_t ws_handler(httpd_req_t *req)

@@ -9,6 +9,7 @@ socket.addEventListener('open', () => {
         console.log('WebSocket connection opened');
         overlay.style.display = 'none';
         body.classList.remove('disable-interaction');
+        socket.send("ready");
 });
 
 socket.addEventListener('message', (event) => {
@@ -31,6 +32,7 @@ socket.addEventListener('error', (event) => {
 
 /* Lock handle */
 const lock_container = document.getElementById('lock-container');
+const lock = document.getElementById('lock');
 const blurry_div = document.getElementById("blurry");
 const warning_div = document.getElementById("warning-div");
 
@@ -40,6 +42,7 @@ const error_sound = new Audio("sound/error.mp3");
 
 var lock_state;
 var is_error = false;
+var interval;
 
 function ws_callback(data)
 {
@@ -48,24 +51,29 @@ function ws_callback(data)
                 lock_state = data.state;
                 toggle_gui_lock();
         }
-        else if ("error" in data)
+        else if ("status" in data)
         {
-                let interval;
-                if (data.error != "success")
+                if (data.status != "ok")
                 {
-                        is_error = true;
-                        warning_div.style.opacity = 1;
-                        warning_div.classList.add("error");
-                        interval = setInterval(() => {
-                                error_sound.play();
-                        }, 1000);
+                        if (!is_error)
+                        {
+                                is_error = true;
+                                warning_div.style.opacity = 1;
+                                warning_div.classList.add("error");
+                                interval = setInterval(() => {
+                                        error_sound.play();
+                                }, 1000);
+                        }
                 }
                 else
                 {
-                        is_error = false;
-                        warning_div.style.opacity = 0;
-                        warning_div.classList.remove("error");
-                        clearTimeout(interval);
+                        if (is_error)
+                        {
+                                is_error = false;
+                                warning_div.style.opacity = 0;
+                                warning_div.classList.remove("error");
+                                clearInterval(interval);
+                        }
                 }
         }
 }
@@ -74,12 +82,16 @@ function toggle_gui_lock()
 {
         if (lock_state == "close")
         {
-                lock_container.classList.add('close');
+                open_sound.play();
+                lock.classList.remove('open');
+                lock.classList.add('close');
                 blurry_div.classList.add('close');
         }
         else if (lock_state == "open")
         {
-                lock_container.classList.remove('close');
+                close_sound.play();
+                lock.classList.remove('close');
+                lock.classList.add('open');
                 blurry_div.classList.remove('close');
         }
 }
@@ -89,12 +101,10 @@ function toggle_lock()
         if (lock_state == "close")
         {
                 socket.send("open");
-                open_sound.play();
         }
         else if (lock_state == "open")
         {
                 socket.send("close");
-                close_sound.play();
         }
 }
 

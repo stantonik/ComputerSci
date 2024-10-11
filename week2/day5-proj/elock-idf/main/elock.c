@@ -24,19 +24,19 @@
 #define LEDC_DUTY_RES           LEDC_TIMER_10_BIT
 #define LEDC_FREQUENCY          (50)
 
-/* #define MOTOR_PIN 7 */
-/* #define ENDSTOP_OPEN_PIN 1 */
-/* #define ENDSTOP_CLOSE_PIN 4 */
-/* #define LED_RED_PIN 2 */
-/* #define LED_GREEN_PIN 9 */
-/* #define SENSOR_PIN 8 */
+#define MOTOR_PIN 7
+#define ENDSTOP_OPEN_PIN 1
+#define ENDSTOP_CLOSE_PIN 4
+#define LED_RED_PIN 2
+#define LED_GREEN_PIN 9
+#define SENSOR_PIN 8
 
-#define MOTOR_PIN 16
-#define ENDSTOP_OPEN_PIN 17
-#define ENDSTOP_CLOSE_PIN 18
-#define LED_RED_PIN 19
-#define LED_GREEN_PIN 21
-#define SENSOR_PIN 22
+/* #define MOTOR_PIN 16 */
+/* #define ENDSTOP_OPEN_PIN 17 */
+/* #define ENDSTOP_CLOSE_PIN 18 */
+/* #define LED_RED_PIN 19 */
+/* #define LED_GREEN_PIN 21 */
+/* #define SENSOR_PIN 22 */
 
 #define TAG "elock"
 
@@ -70,22 +70,6 @@ static esp_err_t lock_open();
 /******************************/
 /*   Function Definitions     */
 /******************************/
-void send_state()
-{
-        switch (state) 
-        {
-                case OPEN:
-                        ws_broadcast("state", "open");
-                        break;
-                case CLOSE:
-                        ws_broadcast("state", "close");
-                        break;
-                case MOVING:
-                        ws_broadcast("state", "moving");
-                        break;
-        }
-}
-
 void ws_callback(const char *payload)
 {
         if (strcmp(payload, "close") == 0)
@@ -105,9 +89,9 @@ void ws_callback(const char *payload)
                         ESP_LOGI(TAG, "lock opened");
                 }
         }
-        else if (strcmp(payload, "state") == 0)
+        else if (strcmp(payload, "ready") == 0)
         {
-                send_state();
+                state = 0;
         }
 }
 
@@ -121,6 +105,9 @@ void loop_task(void *arg)
                         if (state != OPEN)
                         {
                                 ESP_LOGI(TAG, "lock opened");
+                                ws_broadcast("state", "open");
+                                gpio_set_level(LED_RED_PIN, 1);
+                                gpio_set_level(LED_GREEN_PIN, 0);
                                 state = OPEN;
                         }
                 }
@@ -129,17 +116,27 @@ void loop_task(void *arg)
                         if (state != CLOSE)
                         {
                                 ESP_LOGI(TAG, "lock closed");
+                                ws_broadcast("state", "close");
+                                gpio_set_level(LED_RED_PIN, 0);
+                                gpio_set_level(LED_GREEN_PIN, 1);
                                 state = CLOSE;
                         }
                 }
                 else if (state != MOVING)
                 {
-                        ESP_LOGI(TAG, "lock moving");
-                        state = MOVING;
+                        if (state != MOVING)
+                        {
+
+                                ESP_LOGI(TAG, "lock moving");
+                                ws_broadcast("state", "moving");
+                                gpio_set_level(LED_RED_PIN, 0);
+                                gpio_set_level(LED_GREEN_PIN, 0);
+                                state = MOVING;
+                        }
                 }
 
                 // Check pressure sensor
-                if (gpio_get_level(SENSOR_PIN) == 1)
+                if (gpio_get_level(SENSOR_PIN) == 0)
                 {
                         if (!is_forcing)
                         {
@@ -155,9 +152,6 @@ void loop_task(void *arg)
                                 ws_broadcast("status", "ok");
                         }
                 }
-
-
-                vTaskDelay(pdMS_TO_TICKS(10));
         }
 }
 
@@ -233,6 +227,7 @@ void app_main(void)
 
         gpio_pullup_en(ENDSTOP_CLOSE_PIN);
         gpio_pullup_en(ENDSTOP_OPEN_PIN);
+        gpio_pullup_en(SENSOR_PIN);
 
         /* Init LEDC Driver */
         ledc_timer_config_t ledc_timer = 
@@ -256,6 +251,8 @@ void app_main(void)
                 .hpoint         = 0
         };
         ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
+
+
 
         xTaskCreate(loop_task, "loop", 4096, NULL, 2, NULL);
 }

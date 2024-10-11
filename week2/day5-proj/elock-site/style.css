@@ -50,15 +50,6 @@ h1 {
         width: auto;
 }
 
-#lock {
-        height: 80%;
-        position: absolute;
-        left: 1.5vw;
-        top: -14%;
-        transition: all 0.5s ease; 
-        border-radius: 5px;
-}
-
 #blurry {
         position: absolute;
         left: 0;
@@ -72,12 +63,43 @@ h1 {
         z-index: 0;
 }
 
-.close #lock {
-        left: 14vw; 
+#lock {
+        height: 385px;
+        width: 1000px;
+        background-image: url("./img/spritesheet.png");
+        background-size: 100% auto;
+
+        transform: scale(0.5);
 }
 
-.close #blurry {
+#blurry.close {
         background-color: green;
+}
+
+@keyframes lockclose {
+        from { background-position: 0 0; }
+        to { background-position: 0 -27720px; }
+}
+@keyframes lockopen {
+        from { background-position: 0 -27720px; }
+        to { background-position: 0 0; }
+}
+
+#lock.close {
+        animation-name: lockclose;
+        animation-duration: 2s;
+        animation-timing-function: steps(72);
+        animation-fill-mode: forwards;
+
+        transform: scale(0.5);
+}
+#lock.open {
+        animation-name: lockopen;
+        animation-duration: 2s;
+        animation-timing-function: steps(72);
+        animation-fill-mode: forwards;
+
+        transform: scale(0.5);
 }
 
 #warning-div {
